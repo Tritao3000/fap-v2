@@ -42,11 +42,27 @@ export default function MarkdownTypewriter({
   }, [currentWordIndex, words, speedInMs, onFinish, text]);
 
   if (text === '') {
-    return <span className="italic text-gray-400">A pensar{dots}</span>;
+    return (
+      <div className="jumping-dots">
+        <div>.</div>
+        <div>.</div>
+        <div>.</div>
+      </div>
+    );
   }
 
   return (
-    <Markdown className="prose dark:prose-invert max-w-none text-sm">
+    <Markdown
+      options={{
+        wrapper: 'div',
+        overrides: {
+          span: {
+            component: 'p',
+          },
+        },
+      }}
+      className="prose dark:prose-invert max-w-none text-sm"
+    >
       {displayedText}
     </Markdown>
   );
